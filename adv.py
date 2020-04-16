@@ -35,22 +35,13 @@ route = visited = {}  # Note that this is a dictionary, not a set
 
 while len(visited) < len(room_graph):
 	local = player.current_room.id
-	localexits = room_graph[local][1]
+	localexits = player.current_room.get_exits()
+
 	if local not in visited:
-		route[local] = visited[local] = localexits
+		visited[local] = localexits
 
-	other = None
-	if other not in visited:
-		# here.
-		visited[other] = path
 
-		# james = self.friendships[other]
-		x = []
-		for who in x:
-			new_path = list(path)
-			new_path.append(who)
-			qq.enqueue(new_path)				
-
+	
 output(visited)
 
 
