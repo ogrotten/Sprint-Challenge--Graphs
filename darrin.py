@@ -1,4 +1,4 @@
-def output(self, input):
+def output(input):
 	# viz = []
 	# # Create for first X pairs x is total //2
 	# for i in range(num_users * avg_friendships // 2):
