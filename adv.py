@@ -1,21 +1,19 @@
 from room import Room
 from player import Player
 from world import World
-
 import random
 from ast import literal_eval
-from darrin import output
-
+# from darrin import output
 # region world
 # Load world
 world = World()
 
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
-map_file = "maps/test_cross.txt"
+# map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
-# map_file = "maps/main_maze.txt"
+map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
 room_graph = literal_eval(open(map_file, "r").read())
@@ -33,14 +31,14 @@ traversal_path = []
 reversedir = {"n": "s", "s": "n", "e": "w", "w": "e"}
 reverse = [None]
 
-# route for knowing where I've been.
-route = visited = {}  # Note that this is a dictionary, not a set
+visited = {}  # Note that this is a dictionary, not a set
+route = []
+DIR = ""
 
 while len(visited) < len(room_graph):
 	local = player.current_room.id
-	print("Local", local)
 	localexits = player.current_room.get_exits()
-	DIR = ""
+	route.append({local:DIR})
 
 	if local not in visited:
 		# if we haven't just started.
@@ -58,7 +56,7 @@ while len(visited) < len(room_graph):
 		# map the reverse
 		reverse.append(reversedir[DIR])
 		# MOVETO
-		print("Forward", DIR)
+		# print("Forward", DIR)
 		player.travel(DIR)
 
 	# if no place left to go
@@ -67,11 +65,11 @@ while len(visited) < len(room_graph):
 		if reverse[-1]:
 			DIR = reverse.pop()
 			traversal_path.append(DIR)
-			print("BACK", DIR)
+			# print("BACK", DIR)
 			player.travel(DIR)
 
 
-# output(visited)
+# output(route)
 
 
 # TRAVERSAL TEST
